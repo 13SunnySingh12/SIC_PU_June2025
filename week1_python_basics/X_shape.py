@@ -7,6 +7,8 @@ def x_shape(n):
                 print("*", end=" ")
             else:
                 print(" ", end=" ")
+        print()
+    
 
 lines = int(input("Enter number of lines for X Shape: "))
 x_shape(lines)
