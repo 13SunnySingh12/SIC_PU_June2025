@@ -1,11 +1,12 @@
-#Find sum of thye series n - n2/3 + n4/5 - n8/7 .... m terms (1<=n<=4 and 2<=m<=10)
+#Find sum of the series n - n2/3 + n4/5 - n8/7 .... m terms (1<=n<=4 and 2<=m<=10)
 
 def sum_series(m,n):
     total = 0
     for i in range(m):
         numerator = n ** (2 ** i)
         denominator = 2 * i + 1
-        term = ((-1) ** i) * (numerator / denominator)
+        sign = (-1) ** i
+        term = (sign) * (numerator / denominator)
         total += term
     return total
 
