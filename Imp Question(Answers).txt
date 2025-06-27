@@ -9,14 +9,15 @@ When you have two commits and try to push:
 		After merging (or resolving conflicts), you can push your changes.
 3.Force Push (not recommended):
 	->You can use git push --force to overwrite the remote, but this is risky as it can erase others' work.
-________________________________________
+_________________________________________________________________________________________________________________________________
 
 Q2) Find out why there are no ++ and -- operators in Python.
 A:
-	Python doesn't have ++ and -- operators to keep the language simple and readable. Instead, it uses += 1 and -= 1 for incrementing and decrementing, which are clearer and avoid 	potential bugs.
+	Python doesn't have ++ and -- operators to keep the language simple and readable. Instead, it uses += 1 and -= 1 for incrementing and decrementing, 
+	which are clearer and avoid potential bugs.
 
 
-____________________________________
+_________________________________________________________________________________________________________________________________
 
 
 Q3) Find out why there are no ++ and -- operators in Python.
