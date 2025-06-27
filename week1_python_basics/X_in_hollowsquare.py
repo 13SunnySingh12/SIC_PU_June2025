@@ -7,6 +7,8 @@ def x_in_hollow_square(n):
                 print("*", end=" ")
             else:
                 print(" ", end=" ")
+            
+        print()
 
 lines = int(input("Enter number of lines for X in Hollow Square: "))
 x_in_hollow_square(lines)
