@@ -31,3 +31,33 @@ Floating-point numbers are stored in memory using the IEEE 754 standard, which s
 		8 bits for the exponent
 		23 bits for the mantissa
 
+
+
+_________________________________________________________________________________________________________________________________________
+
+
+Q4)Check from which of the Python module the following functions come from.
+range()
+input()
+print()
+len()
+min()
+max()
+sorted()
+
+A:
+Function	Module					Description
+range()		builtins			Generates a sequence of numbers
+input()		builtins			Gets input from the user
+print()		builtins			Displays output to the console
+len()		builtins			Returns the length of an object
+min()		builtins			Returns the smallest item in an iterable
+max()		builtins			Returns the largest item in an iterable
+sorted()	builtins			Returns a sorted list from an iterable
+
+
+________________________________________________________________________________________________________________________________________________
+
+
+
+
