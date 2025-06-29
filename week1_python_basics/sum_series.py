@@ -5,7 +5,8 @@ def sum_series(m,n):
     for i in range(m):
         numerator = n ** (2 ** i)
         denominator = 2 * i + 1
-        term = ((-1) ** i) * (numerator / denominator)
+        sign = (-1) ** i
+        term = (sign) * (numerator / denominator)
         total += term
     return total
 
