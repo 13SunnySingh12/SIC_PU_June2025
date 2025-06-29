@@ -1,4 +1,4 @@
-# Lab 6: Tax Calculator – GlobalNext Solutions
+#Tax Calculator Problem
 
 # Level 1: Input & Gross Salary Calculation
 name = input("Enter employee name: ")
