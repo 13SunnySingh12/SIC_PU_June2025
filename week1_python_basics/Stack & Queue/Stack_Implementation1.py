@@ -1,4 +1,4 @@
-#Implement Stack using list, insert and delete from rear of the list
+#Implement Stack using List (Insert/Delete from Rear)
 
 stack = []
 
