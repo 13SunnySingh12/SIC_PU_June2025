@@ -9,14 +9,15 @@ When you have two commits and try to push:
 		After merging (or resolving conflicts), you can push your changes.
 3.Force Push (not recommended):
 	->You can use git push --force to overwrite the remote, but this is risky as it can erase others' work.
-________________________________________
+_________________________________________________________________________________________________________________________________
 
 Q2) Find out why there are no ++ and -- operators in Python.
 A:
-	Python doesn't have ++ and -- operators to keep the language simple and readable. Instead, it uses += 1 and -= 1 for incrementing and decrementing, which are clearer and avoid 	potential bugs.
+	Python doesn't have ++ and -- operators to keep the language simple and readable. Instead, it uses += 1 and -= 1 for incrementing and decrementing, 
+	which are clearer and avoid potential bugs.
 
 
-____________________________________
+_________________________________________________________________________________________________________________________________
 
 
 Q3) Find out why there are no ++ and -- operators in Python.
@@ -29,4 +30,34 @@ Floating-point numbers are stored in memory using the IEEE 754 standard, which s
 		1 bit for the sign
 		8 bits for the exponent
 		23 bits for the mantissa
+
+
+
+_________________________________________________________________________________________________________________________________________
+
+
+Q4)Check from which of the Python module the following functions come from.
+range()
+input()
+print()
+len()
+min()
+max()
+sorted()
+
+A:
+Function	Module					Description
+range()		builtins			Generates a sequence of numbers
+input()		builtins			Gets input from the user
+print()		builtins			Displays output to the console
+len()		builtins			Returns the length of an object
+min()		builtins			Returns the smallest item in an iterable
+max()		builtins			Returns the largest item in an iterable
+sorted()	builtins			Returns a sorted list from an iterable
+
+
+________________________________________________________________________________________________________________________________________________
+
+
+
 
