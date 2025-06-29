@@ -1,7 +1,5 @@
 #Implement Stack using list, insert and delete from rear of the list
 
-# Stack Implementation using List (Insert/Delete from Rear)
-
 stack = []
 
 def push(item):
