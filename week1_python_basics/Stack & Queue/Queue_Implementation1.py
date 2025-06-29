@@ -1,6 +1,4 @@
-#Implement Queue using list, insert at rear delete from front the list
-
-# Queue Implementation using List (Insert at Rear, Delete from Front)
+#Implement Queue using List (Insert at Rear, Delete from Front)
 
 queue = []
 
