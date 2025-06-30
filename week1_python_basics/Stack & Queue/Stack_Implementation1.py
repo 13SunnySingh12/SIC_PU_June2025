@@ -36,7 +36,7 @@ def display():
 
 
 while True:
-    print("\n==== Stack Menu ====")
+    print("==== Stack Menu ====")
     print("1. Push")
     print("2. Pop")
     print("3. Peek")
