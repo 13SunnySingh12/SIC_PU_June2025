@@ -1,4 +1,4 @@
-#Implement Binary Search using recursion.
+# Implement Binary Search using recursion.
 
 arr_numbers = list(map(int,input("Enter the array of elements: ").split()))
 print(arr_numbers)

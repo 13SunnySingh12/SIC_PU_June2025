@@ -1,4 +1,4 @@
-#Bubble Sort
+# Selection Sort
 
 def Selection_sort(array_numbers, array_length):
 
