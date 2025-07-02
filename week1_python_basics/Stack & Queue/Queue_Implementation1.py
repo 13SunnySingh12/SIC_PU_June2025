@@ -36,7 +36,7 @@ def display():
 
 
 while True:
-    print("\n==== Queue Menu ====")
+    print("==== Queue Menu ====")
     print("1. Enqueue")
     print("2. Dequeue")
     print("3. Peek")
