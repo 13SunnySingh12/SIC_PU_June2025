@@ -9,17 +9,17 @@ def Quick_Sort(array, low, high):
 def Partition(array, low, high):
 
     pivot = array[high]
-    Partition_index = low
+    pivot_index = low
 
     for i in range(low, high):
         if array[i] <= pivot:
-            array[i], array[Partition_index] = array[Partition_index], array[i]
-            Partition_index += 1
+            array[i], array[pivot_index] = array[pivot_index], array[i]
+            pivot_index += 1
 
 
-    array[Partition_index], array[high] = array[high], array[Partition_index]
+    array[pivot_index], array[high] = array[high], array[pivot_index]
 
-    return Partition_index
+    return pivot_index
 
 array_size = int(input("Enter the length of array: "))
 array = list(map(int,input("Enter the elements: ").split()))
