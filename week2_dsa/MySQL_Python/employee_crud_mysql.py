@@ -1,4 +1,5 @@
 import pymysql
+from tabulate import tabulate
 
 def connect_db():
     connection = None
@@ -50,8 +51,17 @@ def read_all_employees(connection):
         cursor = connection.cursor()
         cursor.execute(query)
         rows = cursor.fetchall()
-        for row in rows:
-            print(row)
+        headers = []
+        for column in cursor.description:
+            headers.append(column[0])
+        print(tabulate(
+            rows,
+            headers=headers,
+            tablefmt="fancy_grid",   
+            missingval="N/A",        
+            numalign="center",       
+            stralign="center"        
+        ))
         print('All Rows Retrieved')
         cursor.close()
     except:
@@ -116,5 +126,4 @@ def delete_employee(connection):
             print(f"Employee with id = {id} not found.")
     except:
         print('Employee deletion failed')
-
 
