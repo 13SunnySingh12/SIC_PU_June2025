@@ -25,7 +25,7 @@ class Db_operations:
     def disconnect_db(self, connection):
         try:
             connection.close()
-            print('DB dis-connected')
+            print('DB disconnected')
         except:
             print('Error while disconnecting DB')
 
