@@ -30,7 +30,7 @@ class SLLQueue:
                 self.rear = None
 
     def display(self):
-        if self.front is None:
+        if self.front is None: 
             print("Queue is empty.")
         else:
             current = self.front
