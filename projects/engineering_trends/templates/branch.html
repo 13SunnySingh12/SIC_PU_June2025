@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{ branch }} &mdash; Engineering Branch Trends{% endblock %}
+
+{% block content %}
+<section class="hero hero--compact">
+    <p class="eyebrow"><a href="{{ url_for('compare') }}">&larr; All branches</a></p>
+    <h1>{{ branch }}</h1>
+    <p class="lead">
+        Enrollment, graduates and placement rate for every year in the dataset.
+    </p>
+</section>
+
+<section aria-label="Summary">
+    <div class="cards cards--tight">
+        <article class="card">
+            <p class="card-label">Enrollment {{ rows[0].Year }}</p>
+            <p class="card-value card-value--sm">{{ '{:,}'.format(stats.StartEnrollment) }}</p>
+        </article>
+        <article class="card">
+            <p class="card-label">Enrollment {{ rows[-1].Year }}</p>
+            <p class="card-value card-value--sm">{{ '{:,}'.format(stats.EndEnrollment) }}</p>
+        </article>
+        <article class="card {{ 'card--good' if stats.PercentChange > 0 else 'card--bad' }}">
+            <p class="card-label">Change</p>
+            <p class="card-value card-value--sm">{{ '%+.1f'|format(stats.PercentChange) }}%</p>
+        </article>
+        <article class="card">
+            <p class="card-label">Average placement</p>
+            <p class="card-value card-value--sm">{{ stats.AveragePlacementRate }}%</p>
+        </article>
+    </div>
+</section>
+
+<section class="panel">
+    <figure>
+        <img src="{{ url_for('static', path='charts/' ~ chart) }}"
+             alt="Enrollment and placement rate for {{ branch }}, year by year">
+    </figure>
+</section>
+
+<section class="panel">
+    <h2>Year by year</h2>
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th class="num">Enrolled</th>
+                    <th class="num">Change</th>
+                    <th class="num">Graduates</th>
+                    <th class="num">Graduation %</th>
+                    <th class="num">Placed</th>
+                    <th class="num">Placement %</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    <th scope="row">{{ row.Year }}</th>
+                    <td class="num">{{ '{:,}'.format(row.Enrollment) }}</td>
+                    <td class="num {% if row.EnrollmentChange > 0 %}pos{% elif row.EnrollmentChange < 0 %}neg{% endif %}">
+                        {% if loop.first %}&mdash;{% else %}{{ '{:+,}'.format(row.EnrollmentChange) }}{% endif %}
+                    </td>
+                    <td class="num">{{ '{:,}'.format(row.Graduates) }}</td>
+                    <td class="num">{{ row['Graduation Rate(%)'] }}%</td>
+                    <td class="num">{{ '{:,}'.format(row['Students Placed']) }}</td>
+                    <td class="num">{{ row['Job Placement Rate(%)'] }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Other branches</h2>
+    <div class="branch-grid">
+        {% for b in branches %}
+            {% if b != branch %}
+            <a class="branch-tile" href="{{ url_for('branch', name=b) }}">{{ b }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

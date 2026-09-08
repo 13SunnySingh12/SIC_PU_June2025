@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Engineering Branch Trends{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <a class="brand" href="{{ url_for('dashboard') }}">
+                <span class="brand-mark" aria-hidden="true"></span>
+                <span>
+                    <strong>Engineering Branch Trends</strong>
+                    <small>{{ period }}</small>
+                </span>
+            </a>
+            <nav aria-label="Reports">
+                <a href="{{ url_for('dashboard') }}" {% if active == 'home' %}aria-current="page"{% endif %}>Overview</a>
+                <a href="{{ url_for('growth') }}" {% if active == 'growth' %}aria-current="page"{% endif %}>Growing</a>
+                <a href="{{ url_for('demand') }}" {% if active == 'demand' %}aria-current="page"{% endif %}>In demand</a>
+                <a href="{{ url_for('decline') }}" {% if active == 'decline' %}aria-current="page"{% endif %}>Declining</a>
+                <a href="{{ url_for('compare') }}" {% if active == 'compare' %}aria-current="page"{% endif %}>Compare</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main" class="wrap">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <p>
+                Built from <code>engineering_btech_trends_2019_2024.xlsx</code>
+                &mdash; {{ branches|length }} branches, {{ period }}.
+            </p>
+            <p class="branch-links">
+                {% for b in branches %}<a href="{{ url_for('branch', name=b) }}">{{ b }}</a>{% endfor %}
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

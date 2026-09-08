@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Overview &mdash; Engineering Branch Trends{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Which engineering branches are growing, in demand, or declining?</h1>
+    <p class="lead">
+        {{ answers.total_records }} records covering {{ answers.branch_count }} branches
+        from {{ answers.first_year }} to {{ answers.last_year }}, turned into four
+        answers. Every figure below is calculated from the spreadsheet, not written by hand.
+    </p>
+</section>
+
+<section aria-label="Headline findings">
+    <div class="cards">
+        <article class="card card--good">
+            <p class="card-label">Growing fastest</p>
+            <p class="card-value">{{ answers.fastest_growing }}</p>
+            <p class="card-note">
+                Enrollment up <strong>{{ answers.fastest_growing_pct }}%</strong>
+                across the period
+            </p>
+            <a class="card-link" href="{{ url_for('growth') }}">See all growth &rarr;</a>
+        </article>
+
+        <article class="card card--good">
+            <p class="card-label">Most in demand</p>
+            <p class="card-value">{{ answers.most_demanded }}</p>
+            <p class="card-note">
+                <strong>{{ answers.most_demanded_rate }}%</strong> of graduates placed,
+                on average
+            </p>
+            <a class="card-link" href="{{ url_for('demand') }}">See all demand &rarr;</a>
+        </article>
+
+        <article class="card card--bad">
+            <p class="card-label">Least in demand</p>
+            <p class="card-value">{{ answers.least_demanded }}</p>
+            <p class="card-note">
+                <strong>{{ answers.least_demanded_rate }}%</strong> of graduates placed,
+                on average
+            </p>
+            <a class="card-link" href="{{ url_for('demand') }}">Compare rates &rarr;</a>
+        </article>
+
+        <article class="card card--bad">
+            <p class="card-label">Declining most consistently</p>
+            <p class="card-value">{{ answers.most_declining }}</p>
+            <p class="card-note">
+                Fell in <strong>{{ answers.most_declining_years }}</strong> of
+                {{ answers.last_year - answers.first_year }} years
+            </p>
+            <a class="card-link" href="{{ url_for('decline') }}">See the decline &rarr;</a>
+        </article>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Growth and demand do not move together</h2>
+    <p class="panel-lead">
+        Each point is one branch. Left of the dashed line means enrollment fell;
+        higher up means more of its graduates were placed. A branch can be losing
+        students and still place them well &mdash; which is the most useful thing a
+        student can take from this data.
+    </p>
+    <figure>
+        <img src="{{ url_for('static', path='charts/' ~ chart) }}"
+             alt="Scatter plot of enrollment change against average placement rate for each branch">
+    </figure>
+</section>
+
+<section class="panel">
+    <h2>Explore a single branch</h2>
+    <p class="panel-lead">Year-by-year enrollment, graduates and placement rate.</p>
+    <div class="branch-grid">
+        {% for b in branches %}
+        <a class="branch-tile" href="{{ url_for('branch', name=b) }}">{{ b }}</a>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

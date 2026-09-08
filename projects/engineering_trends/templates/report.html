@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} &mdash; Engineering Branch Trends{% endblock %}
+
+{% block content %}
+<section class="hero hero--compact">
+    <h1>{{ title }}</h1>
+    <p class="lead">{{ lead }}</p>
+</section>
+
+<section class="panel">
+    <figure>
+        <img src="{{ url_for('static', path='charts/' ~ chart) }}" alt="{{ title }}">
+    </figure>
+</section>
+
+<section class="panel">
+    <h2>The numbers behind the chart</h2>
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr>
+                    {% for h in headers %}
+                    <th {% if not loop.first %}class="num"{% endif %}>{{ h }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    {% for col in columns %}
+                        {% if loop.first %}
+                        <th scope="row">
+                            <a href="{{ url_for('branch', name=row[col]) }}">{{ row[col] }}</a>
+                        </th>
+                        {% else %}
+                        <td class="num
+                            {%- if col in ('Change', 'TotalChange', 'PercentChange', 'AverageYearlyChange') %}
+                                {{ ' pos' if row[col] > 0 else ' neg' }}
+                            {%- endif %}">
+                            {%- if col == 'PercentChange' -%}
+                                {{ '%+.1f'|format(row[col]) }}%
+                            {%- elif col in ('AveragePlacementRate', 'BestYearRate', 'WorstYearRate') -%}
+                                {{ row[col] }}%
+                            {%- elif col in ('Change', 'TotalChange', 'AverageYearlyChange') -%}
+                                {{ '{:+,}'.format(row[col]) }}
+                            {%- elif row[col] is number -%}
+                                {{ '{:,}'.format(row[col]) }}
+                            {%- else -%}
+                                {{ row[col] }}
+                            {%- endif -%}
+                        </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% if second_chart %}
+<section class="panel">
+    <figure>
+        <img src="{{ url_for('static', path='charts/' ~ second_chart) }}"
+             alt="Supporting chart for {{ title }}">
+    </figure>
+</section>
+{% endif %}
+
+<section class="panel panel--conclusion">
+    <h2>What this shows</h2>
+    <p>{{ conclusion }}</p>
+</section>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Compare all branches &mdash; Engineering Branch Trends{% endblock %}
+
+{% block content %}
+<section class="hero hero--compact">
+    <h1>All branches, side by side</h1>
+    <p class="lead">
+        Every headline metric in one place, ordered by growth. Read across a row to
+        see whether a branch's enrollment trend and its hiring record agree &mdash;
+        for several of them, they do not.
+    </p>
+</section>
+
+<section class="panel">
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th>Branch</th>
+                    <th class="num">{{ answers.first_year }}</th>
+                    <th class="num">{{ answers.last_year }}</th>
+                    <th class="num">Change %</th>
+                    <th class="num">Avg. placement</th>
+                    <th class="num">Years fallen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    <th scope="row">
+                        <a href="{{ url_for('branch', name=row.Branch) }}">{{ row.Branch }}</a>
+                    </th>
+                    <td class="num">{{ '{:,}'.format(row.StartEnrollment) }}</td>
+                    <td class="num">{{ '{:,}'.format(row.EndEnrollment) }}</td>
+                    <td class="num {{ 'pos' if row.PercentChange > 0 else 'neg' }}">
+                        {{ '%+.1f'|format(row.PercentChange) }}%
+                    </td>
+                    <td class="num">
+                        <span class="bar-cell">
+                            <span class="bar" style="width: {{ row.AveragePlacementRate }}%"></span>
+                            <span class="bar-value">{{ row.AveragePlacementRate }}%</span>
+                        </span>
+                    </td>
+                    <td class="num">{{ row.DecliningYears }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Growth against demand</h2>
+    <p class="panel-lead">
+        The same table as a picture. Branches on the left are shrinking; branches
+        near the top place their graduates well.
+    </p>
+    <figure>
+        <img src="{{ url_for('static', path='charts/' ~ chart) }}"
+             alt="Scatter plot of enrollment change against average placement rate">
+    </figure>
+</section>
+
+<section class="panel panel--conclusion">
+    <h2>What this shows</h2>
+    <p>
+        {{ answers.fastest_growing }} is the only branch growing strongly, up
+        {{ answers.fastest_growing_pct }}%, while {{ answers.biggest_faller }} has
+        fallen {{ answers.biggest_faller_pct|abs }}%. But the placement rates sit far
+        closer together than the enrollment figures do: {{ answers.most_demanded }}
+        leads at {{ answers.most_demanded_rate }}% and {{ answers.least_demanded }}
+        trails at {{ answers.least_demanded_rate }}%, a spread of only
+        {{ '%.1f'|format(answers.most_demanded_rate - answers.least_demanded_rate) }}
+        percentage points. Student preference has shifted far more sharply than
+        employer demand has.
+    </p>
+</section>
+{% endblock %}

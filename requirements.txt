@@ -1,0 +1,23 @@
+# Everything the repository needs. Individual projects also carry their own
+# requirements.txt where they are meant to be run standalone.
+
+# Data analytics (coursework/03_data_analytics, and the analysis project)
+numpy
+pandas
+matplotlib
+seaborn
+scipy
+openpyxl
+
+# Databases and APIs (coursework/04_databases_and_apis, projects/)
+pymysql
+requests
+tabulate
+fastapi
+uvicorn[standard]
+jinja2
+
+# Tests
+pytest
+httpx
+python-dotenv

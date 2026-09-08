@@ -1,0 +1,14 @@
+# Web layer
+fastapi
+uvicorn[standard]
+jinja2
+
+# Data analysis and charting
+pandas
+numpy
+matplotlib
+openpyxl          # lets pandas read the .xlsx dataset
+
+# Tests
+pytest
+httpx
