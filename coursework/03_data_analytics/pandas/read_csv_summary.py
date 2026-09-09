@@ -1,15 +1,10 @@
-"""What is this written for?
-
-Loading a CSV into a pandas DataFrame and taking a first look at it: how many
-non-null values each column holds, and the rows at the top and bottom of the
-frame. This is the standard first step before any analysis.
-"""
+"""Read a CSV and print its non-null counts and first and last rows."""
 
 from pathlib import Path
 
 import pandas as pd
 
-# Resolved from this file's location, so the script runs from any directory.
+# Relative to this file, so the script runs from any directory.
 DATA_FILE = Path(__file__).parent / "data" / "data.csv"
 
 

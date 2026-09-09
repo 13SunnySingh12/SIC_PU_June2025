@@ -1,20 +1,7 @@
-"""What is this written for?
+"""All the calculations behind the site: DataFrame in, numbers out.
 
-The analysis layer: it loads the 2019-2024 B.Tech spreadsheet and turns it into
-the answers the site needs. Nothing here knows about charts or the web - every
-function takes a DataFrame and returns numbers, so each one can be checked on
-its own.
-
-The four questions the project sets out to answer:
-
-    growth_table()      which branches are growing, and by how much
-    demand_table()      which are most and least in demand
-    decline_table()     which are losing students year after year
-    headline_answers()  the single best answer to each of the above
-
-"Demand" is measured with Job Placement Rate(%), not the raw number of students
-placed. A big branch places more people simply by being big; the rate says what
-share of its graduates actually found work, which is what "in demand" means.
+Demand is measured by placement rate, not students placed - a big branch places
+more people just by being big.
 """
 
 from pathlib import Path
@@ -26,11 +13,7 @@ DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "engineering_btech
 
 
 def load_data():
-    """Read the spreadsheet and return it as a tidy DataFrame.
-
-    One row per (year, branch). Column names are stripped because the source
-    file has stray spaces around some of the headers.
-    """
+    """Read the spreadsheet. Headers are stripped - the source has stray spaces."""
     df = pd.read_excel(DATA_FILE)
     df.columns = df.columns.str.strip()
     df["Year"] = df["Year"].astype(int)
@@ -57,11 +40,7 @@ def enrollment_pivot(df):
 # --------------------------------------------------------------------------
 
 def growth_table(df):
-    """Rank branches by how much their enrollment changed across the period.
-
-    Percentage change rather than headcount, so a small branch that doubled is
-    not buried under a large branch that grew slightly.
-    """
+    """Rank branches by percentage change in enrollment, not headcount."""
     pivot = enrollment_pivot(df)
     first, last = years(df)
 
@@ -83,11 +62,7 @@ def growth_table(df):
 # --------------------------------------------------------------------------
 
 def demand_table(df):
-    """Rank branches by their average job placement rate over the period.
-
-    Also carries the average number placed, so the page can show that the
-    highest rate does not always belong to the biggest branch.
-    """
+    """Rank branches by average placement rate. Also carries the average placed."""
     grouped = df.groupby("Branch").agg(
         AveragePlacementRate=("Job Placement Rate(%)", "mean"),
         BestYearRate=("Job Placement Rate(%)", "max"),
@@ -108,13 +83,9 @@ def demand_table(df):
 # --------------------------------------------------------------------------
 
 def decline_table(df):
-    """Rank branches by how consistently their enrollment falls.
+    """Rank branches by how consistently enrollment falls.
 
-    Two different things are counted, because they disagree:
-      DecliningYears - how many years enrollment dropped (consistency)
-      TotalChange    - the net headcount lost (size of the drop)
-    A branch can slide every single year yet lose fewer students than a bigger
-    branch that fell only twice, so both are reported.
+    Reports both how many years it dropped and the net loss - they disagree.
     """
     pivot = enrollment_pivot(df)
     change_per_year = pivot.diff()
@@ -136,11 +107,7 @@ def decline_table(df):
 # --------------------------------------------------------------------------
 
 def branch_detail(df, branch):
-    """Every year of data for one branch, plus its year-on-year change.
-
-    Raises ValueError for an unknown branch so the web layer can turn that into
-    a 404 rather than rendering an empty page.
-    """
+    """One branch year by year. Raises ValueError if the branch is unknown."""
     if branch not in df["Branch"].values:
         raise ValueError(f"Unknown branch: {branch}")
 
@@ -150,19 +117,13 @@ def branch_detail(df, branch):
 
 
 def comparison_table(df):
-    """One row per branch pulling together every headline metric.
-
-    This is the table behind the Compare page, and the closest thing the project
-    has to a single answer sheet.
-    """
+    """One row per branch with every headline metric. Backs the Compare page."""
     growth = growth_table(df).set_index("Branch")
     demand = demand_table(df).set_index("Branch")
     decline = decline_table(df).set_index("Branch")
 
-    # Every column below is a Series keyed by branch, so pandas lines them up by
-    # name no matter what order each table was sorted into. The branch label then
-    # comes from that shared index - never from a separate positional array,
-    # which would pair each name with whichever row happened to land beside it.
+    # Columns are Series keyed by branch, so pandas aligns them by name. The
+    # label must come from that index - a positional array would mismatch rows.
     table = pd.DataFrame({
         "StartEnrollment": growth["Start"],
         "EndEnrollment": growth["End"],
@@ -181,11 +142,7 @@ def comparison_table(df):
 # --------------------------------------------------------------------------
 
 def headline_answers(df):
-    """The four answers the project exists to give, as plain values.
-
-    Returned as a dict so the dashboard can show them without repeating any of
-    the calculations above.
-    """
+    """The four headline answers, as a dict for the dashboard."""
     growth = growth_table(df)
     demand = demand_table(df)
     decline = decline_table(df)
@@ -222,11 +179,7 @@ def headline_answers(df):
 
 
 def conclusion_for(topic, df):
-    """A written takeaway for each report page.
-
-    The numbers are read back out of the tables, so the sentence can never drift
-    away from what the chart above it shows.
-    """
+    """A written takeaway for a report page, built from the same numbers."""
     a = headline_answers(df)
     span = f"{a['first_year']}-{a['last_year']}"
 

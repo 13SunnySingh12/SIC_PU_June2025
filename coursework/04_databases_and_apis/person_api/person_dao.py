@@ -1,13 +1,4 @@
-"""What is this written for?
-
-The data-access layer behind the person REST API. `Person` is the plain record
-the API passes around, and `Db_operations` wraps every SQL statement the API
-needs: create the table, insert, update, delete, search by id, list all.
-
-Keeping the SQL here means main.py only deals with HTTP concerns. Credentials
-are read from the environment, or from a .env file one folder up - see
-.env.example there. Nothing is hardcoded.
-"""
+"""MySQL CRUD functions for the persons table."""
 
 import os
 from pathlib import Path
@@ -15,8 +6,7 @@ from pathlib import Path
 import pymysql
 from dotenv import load_dotenv
 
-# Reads coursework/04_databases_and_apis/.env if it exists. Real environment
-# variables take precedence, so nothing is overridden in CI or production.
+# Loads the .env one folder up.
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 

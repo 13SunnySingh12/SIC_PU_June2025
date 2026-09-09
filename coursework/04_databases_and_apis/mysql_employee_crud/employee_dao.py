@@ -1,12 +1,4 @@
-"""What is this written for?
-
-The data-access layer for the employee table: it opens and closes the MySQL
-connection and holds one function per CRUD operation (create table, read all,
-insert, update, delete). employee_menu.py drives these from a console menu.
-
-Credentials are read from the environment, or from a .env file one folder up -
-see .env.example there. Nothing is hardcoded.
-"""
+"""MySQL CRUD functions for the employee table. Driven by employee_menu.py."""
 
 import os
 from pathlib import Path
@@ -15,8 +7,7 @@ import pymysql
 from dotenv import load_dotenv
 from tabulate import tabulate
 
-# Reads coursework/04_databases_and_apis/.env if it exists. Real environment
-# variables take precedence, so nothing is overridden in CI or production.
+# Loads the .env one folder up.
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 

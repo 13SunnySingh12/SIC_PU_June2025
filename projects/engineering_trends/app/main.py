@@ -1,24 +1,6 @@
-"""What is this written for?
+"""FastAPI routes. Numbers come from analysis.py, charts from charts.py.
 
-The web layer. It maps each question the project answers onto a page, calls
-analysis.py for the numbers and charts.py for the picture, and hands both to a
-Jinja2 template.
-
-    GET /                dashboard - the four answers at a glance
-    GET /growth          which branches are growing
-    GET /demand          which are most and least in demand
-    GET /decline         which are losing students year after year
-    GET /compare         every branch and metric in one table
-    GET /branch/{name}   one branch in detail
-
-No calculation happens in this file - if a number appears on a page, it came
-from analysis.py, which can be tested without starting a server.
-
-Run it with:
-
-    uvicorn app.main:app --reload
-
-from the project folder, then open http://127.0.0.1:8000
+Run with:  uvicorn app.main:app --reload
 """
 
 from pathlib import Path
@@ -45,7 +27,7 @@ templates = Jinja2Templates(directory=PROJECT_DIR / "templates")
 
 
 def page(request, template, **context):
-    """Render a template with the values every page needs already filled in."""
+    """Render a template with the values every page needs."""
     df = analysis.load_data()
     first, last = analysis.years(df)
     context.setdefault("branches", analysis.branches(df))

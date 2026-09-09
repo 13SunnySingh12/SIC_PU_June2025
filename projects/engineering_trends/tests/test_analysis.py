@@ -1,17 +1,4 @@
-"""What is this written for?
-
-Checking the calculations in analysis.py against the real spreadsheet, without
-starting a web server.
-
-The most important test here is test_comparison_table_rows_are_not_scrambled.
-An earlier version of comparison_table() built its Branch column from a
-positional array while every other column was a pandas Series aligned by index -
-so each branch was shown next to another branch's numbers. The page looked
-perfectly normal; only the values were wrong. That is the kind of bug worth a
-permanent test.
-
-Run with:  pytest
-"""
+"""Tests for the calculations in analysis.py, run against the real spreadsheet."""
 
 import sys
 from pathlib import Path

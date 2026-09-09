@@ -1,9 +1,4 @@
-"""What is this written for?
-
-Walking a DataFrame row by row with `DataFrame.iterrows()`, which yields an
-(index, Series) pair per row. Here the index is unpacked separately and the
-first two columns of each row are printed by position.
-"""
+"""Loop over DataFrame rows with iterrows() and print the first two columns."""
 
 from pathlib import Path
 
@@ -16,8 +11,7 @@ def print_first_two_columns():
     df = pd.read_csv(DATA_FILE)
 
     for index, row in df.iterrows():        # row-wise generator
-        # .iloc selects by position; plain row[0] indexes by label and no
-        # longer falls back to position in current pandas.
+        # .iloc selects by position; row[0] would index by label.
         print(row.iloc[0], "  ", row.iloc[1])
 
 

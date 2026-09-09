@@ -1,10 +1,4 @@
-"""What is this written for?
-
-The same `iterrows()` walk as iterate_rows_iterrows.py, but keeping each
-(index, Series) pair as a single tuple instead of unpacking it. It shows that
-`row[1]` is the Series holding the actual row data, which is then indexed by
-position.
-"""
+"""Same as iterate_rows_iterrows.py, but keeping each row as one tuple."""
 
 from pathlib import Path
 

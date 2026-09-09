@@ -1,24 +1,6 @@
-"""What is this written for?
+"""FastAPI CRUD endpoints over the MySQL persons table. SQL lives in person_dao.py.
 
-A REST API over the MySQL `persons` table - the HTTP layer that exposes the five
-CRUD operations in person_dao.py as endpoints:
-
-    POST   /persons        create a person
-    GET    /persons        list every person
-    GET    /persons/{id}   fetch one person
-    PUT    /persons/{id}   replace one person
-    DELETE /persons/{id}   delete one person
-
-Built with FastAPI: request bodies are validated against the Pydantic models
-below before any handler runs, path ids are coerced to int, and interactive docs
-are generated at /docs.
-
-Run it with:
-
-    uvicorn main:app --reload
-
-(from this folder, with the MYSQL_* environment variables set - see the
-.env.example one folder up).
+Run with:  uvicorn main:app --reload
 """
 
 from contextlib import asynccontextmanager
@@ -36,11 +18,8 @@ persons = Db_operations()
 
 
 class PersonIn(BaseModel):
-    """The request body accepted by POST /persons and PUT /persons/{id}.
-
-    The field types mirror the persons table, so anything the database would
-    reject is turned away here with a 422 explaining which field is wrong -
-    rather than reaching MySQL and surfacing as an opaque 500.
+    """Request body for POST and PUT. Types mirror the table, so bad input is
+    rejected here with a 422 instead of failing in MySQL as a 500.
     """
 
     name: str = Field(min_length=1, max_length=32)
@@ -64,10 +43,8 @@ class PersonOut(PersonIn):
 
 
 def to_person_out(row):
-    """Map a persons row to the response model.
-
-    Column order comes from the CREATE TABLE in person_dao.py:
-    id, name, gender, location, dob - note that location precedes dob.
+    """Map a row to the response model. Column order: id, name, gender,
+    location, dob - location comes before dob.
     """
     return PersonOut(
         id=row[0],

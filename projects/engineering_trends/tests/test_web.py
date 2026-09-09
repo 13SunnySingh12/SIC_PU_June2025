@@ -1,14 +1,4 @@
-"""What is this written for?
-
-Checking that every page renders, serves the chart it points at, and shows the
-correct figures.
-
-Each report test does more than assert a 200: it pulls the chart filename out of
-the returned HTML and fetches it, because a page that renders with a broken
-image still returns 200 and still looks fine to a status-code-only test.
-
-Run with:  pytest
-"""
+"""Tests that every page renders, serves its chart, and shows the right figures."""
 
 import html as html_module
 import re

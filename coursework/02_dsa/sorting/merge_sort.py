@@ -1,10 +1,4 @@
-# Merge Sort
-
-# What is this written for?
-# Sorting a list with the divide-and-conquer approach: split the list in half,
-# sort each half recursively, then merge the two sorted halves back together.
-# Unlike bubble/insertion/selection sort in this folder, merge sort runs in
-# O(n log n) time regardless of how the input is ordered.
+# Merge Sort - split the list in half, sort each half, merge them back.
 
 
 def Merge(array, left_half, right_half):

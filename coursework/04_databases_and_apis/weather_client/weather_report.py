@@ -1,15 +1,4 @@
-"""What is this written for?
-
-Consuming a third-party REST API from Python: it asks for a city name, calls the
-OpenWeatherMap current-weather endpoint with `requests`, and prints the fields of
-interest out of the JSON response.
-
-The API key never lives in this file. Put it in the .env one folder up (copy
-.env.example), or set OPENWEATHER_API_KEY in your environment:
-
-    PowerShell:  $env:OPENWEATHER_API_KEY = "your-key"
-    Git Bash:    export OPENWEATHER_API_KEY="your-key"
-"""
+"""Print the current weather for a city, from the OpenWeatherMap API."""
 
 import os
 import sys
@@ -18,8 +7,7 @@ from pathlib import Path
 import requests
 from dotenv import load_dotenv
 
-# Reads coursework/04_databases_and_apis/.env if it exists. Real environment
-# variables take precedence, so nothing is overridden in CI or production.
+# Loads the .env one folder up.
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 API_URL = "https://api.openweathermap.org/data/2.5/weather"
@@ -27,8 +15,7 @@ API_URL = "https://api.openweathermap.org/data/2.5/weather"
 
 def main():
     api_key = os.environ.get("OPENWEATHER_API_KEY", "").strip()
-    # The placeholder from .env.example is a non-empty string, so check for it
-    # explicitly - otherwise it reaches the API and comes back as an opaque 401.
+    # The .env.example placeholder is non-empty, so check for it too.
     if not api_key or api_key == "your-openweathermap-key":
         sys.exit(
             "OPENWEATHER_API_KEY is not set. Get a free key at "

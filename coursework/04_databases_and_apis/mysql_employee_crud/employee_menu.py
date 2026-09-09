@@ -5,19 +5,20 @@ import sys
 
 import employee_dao as emp
 
-# The employee table is drawn with tabulate's box-drawing characters, which the
-# default Windows console code page (cp1252) cannot encode - printing it would
-# raise UnicodeEncodeError. Switching stdout to UTF-8 lets the table render.
+# tabulate draws the table with box characters the default Windows console
+# cannot encode, so printing it would fail.
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
+
 def main():
     connection = emp.connect_db()
+
     if connection:
         emp.create_table(connection)
 
         while True:
-            print("\n MENU:")
+            print("\nMENU:")
             print("1. View All Employees")
             print("2. Insert New Employee")
             print("3. Update Existing Employee")
@@ -28,23 +29,18 @@ def main():
 
             if choice == 1:
                 emp.read_all_employees(connection)
-
             elif choice == 2:
                 emp.insert_employee(connection)
-
             elif choice == 3:
                 emp.update_employee(connection)
-
             elif choice == 4:
                 emp.delete_employee(connection)
-
             elif choice == 5:
-                emp.disconnect_db(connection)   
+                emp.disconnect_db(connection)
                 break
-
             else:
                 print("Invalid Choice")
 
 
-if __name__ == "__main__":           
+if __name__ == "__main__":
     main()

@@ -1,15 +1,6 @@
-"""What is this written for?
+"""Draws the site's charts with matplotlib and saves them into static/charts/.
 
-Every chart the site shows. Each function takes the numbers produced by
-analysis.py, draws them with matplotlib, saves a PNG into static/charts/ and
-returns the filename for the template to render.
-
-Charts are saved under a unique name each time and old ones are cleared on every
-request, so a stale image can never be served and the folder cannot grow without
-limit.
-
-The colours match the page CSS so the charts look like part of the page rather
-than something pasted into it.
+Each function returns the filename for the template to render.
 """
 
 import time
@@ -18,16 +9,14 @@ from pathlib import Path
 
 import matplotlib
 
-# Chosen before pyplot is imported: a web server has no display, and the default
-# interactive backend would fail or leak windows.
+# Must be set before pyplot is imported: the server has no display.
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt  # noqa: E402
 
 CHART_DIR = Path(__file__).resolve().parent.parent / "static" / "charts"
 
-# Charts are kept this long before being swept up, so a page that is still
-# loading its images is never left with broken ones.
+# How long a chart is kept before being swept up.
 CHART_MAX_AGE_SECONDS = 600
 
 # Palette shared with static/style.css
@@ -72,11 +61,8 @@ def _save(fig):
 def cleanup_charts(max_age_seconds=CHART_MAX_AGE_SECONDS):
     """Delete charts older than max_age_seconds.
 
-    Deleting *every* chart on each request looks tidier but breaks the page: the
-    browser asks for the HTML first and the images a moment later, so a second
-    page load in between would wipe the images the first page was still
-    fetching. Ageing them out instead keeps the folder from growing while
-    leaving recently-served charts readable.
+    Aged out rather than cleared each request, or a second page load would wipe
+    images the first page was still fetching.
     """
     if not CHART_DIR.exists():
         return
@@ -208,11 +194,7 @@ def decline_bars(decline):
 
 
 def growth_vs_demand(comparison):
-    """Growth against placement rate - the chart that shows they disagree.
-
-    A branch can be shrinking fast and still place its graduates well, which is
-    the single most useful thing a student can take from this data.
-    """
+    """Growth against placement rate - shows the two do not track each other."""
     fig, ax = _new_figure(width=9.5, height=5.6)
 
     x = comparison["PercentChange"]
