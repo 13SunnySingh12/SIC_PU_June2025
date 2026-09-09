@@ -10,7 +10,7 @@ project built at the end of it.
 ```
 SIC_PU_June2025/
 ├── projects/
-│   └── engineering_branch_analysis/   FastAPI web app - the hackathon project
+│   └── engineering_trends/            FastAPI web app - the main project
 ├── coursework/
 │   ├── 01_python_basics/              conditionals, patterns, number problems,
 │   │                                  lists, recursion, list-backed stack & queue
@@ -21,20 +21,21 @@ SIC_PU_June2025/
 └── docs/                              written answers and the git assignment
 ```
 
-Every file opens with a short comment saying what it is written for.
+Every file opens with a short comment describing what it does.
 
 ## The main project
 
-**[Engineering Branch Analysis](projects/engineering_branch_analysis/)** — a
-FastAPI web app that analyses B.Tech enrolment and placement data for seven
-engineering branches over 2019–2024. Four report pages, each rendering a
-matplotlib/seaborn chart plus a written conclusion, with the analysis kept
-separate from the web layer. Covered by end-to-end tests.
+**[Engineering Branch Trends](projects/engineering_trends/)** — a FastAPI web
+app that analyses B.Tech enrolment and placement data for seven engineering
+branches over 2019–2024. It answers which branches are growing, which are most
+and least in demand, and which are declining, each as a matplotlib chart with a
+written conclusion. The analysis is kept separate from the web layer and covered
+by 37 tests.
 
 ```bash
-cd projects/engineering_branch_analysis
+cd projects/engineering_trends
 pip install -r requirements.txt
-uvicorn app.main:app --reload --port 5762
+uvicorn app.main:app --reload
 ```
 
 ## Coursework highlights
@@ -108,5 +109,5 @@ template showing which keys are needed.
 ## Tests
 
 ```bash
-pytest projects/engineering_branch_analysis
+pytest projects/engineering_trends
 ```
