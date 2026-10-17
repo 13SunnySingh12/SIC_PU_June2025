@@ -559,7 +559,7 @@ cannot display anything.
 `projects/engineering_trends/static/charts/` at request time and deleted once
 older than 600 seconds. Reload the page and it is regenerated.
 
-## Author and license
+## Author
 
 Created by **Sunny Singh** ([@13SunnySingh12](https://github.com/13SunnySingh12))
 as coursework and project work for the Samsung Innovation Campus *Coding &
