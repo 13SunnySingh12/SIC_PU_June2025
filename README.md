@@ -564,6 +564,3 @@ older than 600 seconds. Reload the page and it is regenerated.
 Created by **Sunny Singh** ([@13SunnySingh12](https://github.com/13SunnySingh12))
 as coursework and project work for the Samsung Innovation Campus *Coding &
 Programming in Python* programme, June 2025.
-
-No license file is present in this repository, so no license is granted and all
-rights remain with the author.
