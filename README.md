@@ -26,7 +26,7 @@ deciding what to run:
 - [Tests](#tests)
 - [Usage examples](#usage-examples)
 - [Troubleshooting](#troubleshooting)
-- [Author and license](#author-and-license)
+- [Author](#author)
 
 ## Project overview
 
